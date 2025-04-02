@@ -1,0 +1,195 @@
+{
+  "main": {
+    "id": "e402d8334970cbf1",
+    "type": "split",
+    "children": [
+      {
+        "id": "4a3521c5783dc17c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1c9a5af10a1a9c5f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "10_Networking/00_IntroductionToInternet.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "00_IntroductionToInternet"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "e893d2001805cdfb",
+    "type": "split",
+    "children": [
+      {
+        "id": "3a3d191d0a89d238",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2f69a895e97a050a",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "bd5089bc76e995e2",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "0e4164f798991914",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "32b3cc9cd4b93866",
+    "type": "split",
+    "children": [
+      {
+        "id": "f1380e8a074a1462",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3829ef09d79b9281",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "00_Networking/00_Introduction to Internet.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for 00_Introduction to Internet"
+            }
+          },
+          {
+            "id": "93063aa7534b6134",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "00_Networking/00_Introduction to Internet.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from 00_Introduction to Internet"
+            }
+          },
+          {
+            "id": "b8c7624013ed9289",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "38537310c2112bc8",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "00_Networking/00_IntroductionToInternet.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of 00_IntroductionToInternet"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "obsidian-excalidraw-plugin:New drawing": false
+    }
+  },
+  "active": "2f69a895e97a050a",
+  "lastOpenFiles": [
+    "00_C++/00_PatternsAndConcepts.md",
+    "2025-03-21.md",
+    "00_C++",
+    "10_Networking/00_IntroductionToInternet.md",
+    "999_Screenshots/Pasted image 20250318140745.png",
+    "100_Misc/UCB Courses.md",
+    "Welcome.md",
+    "100_Misc",
+    "999_Screenshots/Pasted image 20250314170650.png",
+    "01_DataStructures/00_CS61B Berkely.md",
+    "01_DataStructures",
+    "999_Screenshots/Pasted image 20250311103601.png",
+    "999_Screenshots/Pasted image 20250314165901.png",
+    "999_Screenshots/Pasted image 20250311113340.png",
+    "999_Screenshots/Pasted image 20250311113233.png",
+    "999_Screenshots/Pasted image 20250311112033.png",
+    "999_Screenshots/Pasted image 20250311110332.png",
+    "999_Screenshots/Pasted image 20250311105954.png",
+    "999_Screenshots",
+    "10_Networking"
+  ]
+}
