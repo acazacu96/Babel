@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "10_Networking/00_IntroductionToInternet.md",
+                "file": "00_C++/00_PatternsAndConcepts.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "00_IntroductionToInternet"
+              "title": "00_PatternsAndConcepts"
             }
           }
         ]
@@ -169,12 +169,12 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "2f69a895e97a050a",
+  "active": "1c9a5af10a1a9c5f",
   "lastOpenFiles": [
+    "10_Networking/00_IntroductionToInternet.md",
     "00_C++/00_PatternsAndConcepts.md",
     "2025-03-21.md",
     "00_C++",
-    "10_Networking/00_IntroductionToInternet.md",
     "999_Screenshots/Pasted image 20250318140745.png",
     "100_Misc/UCB Courses.md",
     "Welcome.md",
