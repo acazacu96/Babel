@@ -68,7 +68,7 @@ struct _Any_callable_manager<Callable> {
     static void store(_Fn&& callable, _Any_callable& any_callable) {
         new (&get_ref(any_callable)) Callable(std::forward<_Fn>(callable));
     }
-    static void move_and_destroy(_Any_callable& dest, _Any_callable& src) {
+    static void move_and_destroy(_Any_callable& dest, _Any_callable& src) noexcept {
         store(std::move(get_ref(src)), dest);
         destroy(src);
         dest.operations = std::exchange(src.operations, nullptr);
@@ -147,6 +147,7 @@ public:
     function& operator=(Callable&& callable) {
         if (*this) { unset(); }
         set(std::forward<Callable>(callable));
+        return *this;
     }
 
     ~function() { if (*this) { unset(); } }
