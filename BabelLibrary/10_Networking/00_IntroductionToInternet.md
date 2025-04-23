@@ -4,12 +4,16 @@
 	1. [Layers of internet](#Layers%20of%20internet)
 	2. [Headers](#Headers)
 	3. [Timing Diagrams](#Timing%20Diagrams)
-3. [Routing](#Routing)
+3. [Addressing](#Addressing)
+4. [Routing](#Routing)
 	4. [Introduction](#Introduction)
 	5. [Interior Gateway Protocols](#Interior%20Gateway%20Protocols)
 		1. [Distance-Vector Protocol](#Distance-Vector%20Protocol)
 		2. [Link-State Protocol](#Link-State%20Protocol)
 	6. [Exterior Gateway Protocols](#Exterior%20Gateway%20Protocols)
+5. [Transport - TCP](#Transport%20-%20TCP)
+	7. [Flow](#Flow)
+	8. [Congestion control](#Congestion%20control)
 
 
 ## Class 
@@ -90,3 +94,37 @@ The exact opposite of Distance-Vector (where the FW tables are computed in a dis
 Here, each router learns the entire network by sending messages about neighbors, and populates the FW table individually using shortest path algorithms. 
 
 ### Exterior Gateway Protocols
+
+## Transport - TCP
+
+``` C++
+ISN = Initial Sequence Number // each message has a seq. num to achieve ordering
+ACK = Ackowledge // confirmation a segment was received
+MSS = Maximum Segment Size // maximum number of bytes in a TCP Segment
+CWND = Control Window // Maximum number of bytes to send in RTT
+AIMD = Additive Increase Multiplicate Decrease // How to adjust the size of CWND
+RTT = Round Trip Time // How long it takes to send a segment and receive an ACK
+```
+
+### Flow
+
+- Handshake
+	- the sender and the receiver share their ISN (SYN -> SYN-ACK -> ACK)
+	 ![[TcpHanshake.png]]
+
+- Cumulative ACKS 
+	- The receiver sends an ACK message with the next byte that is expecting (not the bytes that he received) 
+	- e.g: ACK 100 means the bytes 0-99 have been received
+	- duplicated ACKS (e.g: ACK 100 received 2 times) means packet loss
+	 ![[AckWindow.png]]
+
+-  Timeout
+	- If the timer expires (no ACK received), we will re-send the left-most unacknowledged segment
+	- Timer is set based on RTT
+	- Timer is reset after we received an ACK
+
+### Congestion control
+
+- Slow start to determine the control window (CWND)
+- Event: duplicated ACK -> packet loss, mild congestion -> decrease CWND
+- Event: timeout ACK -> many packets loss, heavy congestion -> determine new CWND

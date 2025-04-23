@@ -1,9 +1,12 @@
 
 1. [Type Erasure](#Type%20Erasure)
 	1. [Type Erasure with virtual functions](#Type%20Erasure%20with%20virtual%20functions)
-	2. [Type erasure with free template functions and SSO](#Type%20erasure%20with%20free%20template%20functions%20and%20SSO)
+	2. [Type erasure with static free template functions and SSO](#Type%20erasure%20with%20static%20free%20template%20functions%20and%20SSO)
 	3. [GCC implementation of std::function](#GCC%20implementation%20of%20std::function)
 	4. [SSO implementation of std::function](#SSO%20implementation%20of%20std::function)
+	5. [The post](#The%20post)
+2. [Copy-and-Swap idiom](#Copy-and-Swap%20idiom)
+	6. [The post](#The%20post)
 
 ## Type Erasure
 
@@ -342,3 +345,75 @@ private:
 
 - https://github.com/skarupke/std_function/blob/master/function.h#L52
 - https://probablydance.com/2013/01/13/a-faster-implementation-of-stdfunction/
+
+### The post
+
+https://www.linkedin.com/posts/alexandru-ciprian-cazacu-65921b119_c-cpp-designpatterns-activity-7315656652890800129-acMx?utm_source=share&utm_medium=member_desktop&rcm=ACoAAB1mBuUBcmcRNqxPfu1aB6W8K38lm_ABYW0
+
+Type Erasure pattern in c++
+
+💡Ever wondered how std::function manages to store any callable? 
+
+✅ Type erasure = data storage + virtual table (of some sort)
+
+💾 The 𝐝𝐚𝐭𝐚 𝐬𝐭𝐨𝐫𝐚𝐠𝐞 component is straightforward: it's just a small local buffer that holds the callable object. 
+
+✅ To make it more efficient, when the callable is compact (16 bytes or less), it's constructed directly in this buffer through 𝐒𝐦𝐚𝐥𝐥 𝐁𝐮𝐟𝐟𝐞𝐫 𝐎𝐩𝐭𝐢𝐦𝐢𝐳𝐚𝐭𝐢𝐨𝐧 (SBO). 
+
+Larger callables get heap-allocated, with only their pointer stored in the buffer. 
+
+🎭 The 𝐯𝐢𝐫𝐭𝐮𝐚𝐥 𝐭𝐚𝐛𝐥𝐞 (where things get interesting) is responsible for making sense of those stored bytes by reinterpreting them back into the concrete callable type. 
+
+I chose to implement it through pointers to free templated static functions, with type-agnostic signatures. 
+
+⚙️ The implementation relies on three key components: 
+- _𝐕𝐭𝐚𝐛𝐥𝐞 mirrors a compiler-generated virtual table 
+- _𝐀𝐧𝐲_𝐜𝐚𝐥𝐥𝐚𝐛𝐥𝐞_𝐦𝐚𝐧𝐚𝐠𝐞𝐫<𝐓> handles SBO versus heap storage decisions 
+- _𝐀𝐧𝐲_𝐜𝐚𝐥𝐥𝐚𝐛𝐥𝐞 serves as the type-erased wrapper, combining the buffer and vtable pointer 
+
+‼️ I left out 𝐚 𝐥𝐨𝐭 of code, to reduce the noise and make the slides as light as possible. 
+Code on Godbolt: https://godbolt.org/z/47WYb7dz6
+
+
+## Copy-and-Swap idiom
+
+The problem:
+- weak (exception guarantee) assignment = Destroy current state + Copy new state 
+
+The solution:
+- strong (exception guarantee) assignment  = Copy new state + Swap + Destroy
+- avoid code duplication
+- handle elegantly `if (this != &oth)`
+
+### The post
+
+https://www.linkedin.com/posts/alexandru-ciprian-cazacu-65921b119_c-designpatterns-copyandswap-activity-7319297955193053184-oR9r?utm_source=share&utm_medium=member_desktop&rcm=ACoAAB1mBuUBcmcRNqxPfu1aB6W8K38lm_ABYW0
+
+𝐒𝐚𝐟𝐞𝐫 𝐂++, 𝐂𝐨𝐩𝐲-𝐚𝐧𝐝-𝐒𝐰𝐚𝐩 𝐢𝐝𝐢𝐨𝐦 (𝐬𝐭𝐝::𝐟𝐮𝐧𝐜𝐭𝐢𝐨𝐧)  
+  
+🤔 Assignment operators in c++ can be tricky...  
+  
+🔎 A naive assignment operator does two dangerous steps:  
+❌ Delete the old state (irreversible!)  
+❌ Copy the new state (might throw!)  
+  
+If the second step throws, we lost our data and we are in an inconsistent state.  
+  
+✅ 𝐂𝐨𝐩𝐲-𝐚𝐧𝐝-𝐒𝐰𝐚𝐩 idiom solves these and adds 𝐬𝐭𝐫𝐨𝐧𝐠 𝐞𝐱𝐜𝐞𝐩𝐭𝐢𝐨𝐧 𝐠𝐮𝐚𝐫𝐚𝐧𝐭𝐞𝐞  
+  
+⚙️ It relies on 3 things:  
+  
+1. 𝐜𝐨𝐩𝐲/𝐦𝐨𝐯𝐞 𝐜𝐨𝐧𝐬𝐭𝐫𝐮𝐜𝐭𝐨𝐫 to create a temporary object with the data we want to copy/move  
+  
+2. 𝐬𝐰𝐚𝐩 𝐟𝐮𝐧𝐜𝐭𝐢𝐨𝐧 to trivially exchange our object attributes with the temporary object  
+  
+3. 𝐝𝐞𝐬𝐭𝐫𝐮𝐜𝐭𝐨𝐫 to destroy the temporary object, which now holds our original data  
+  
+✅ Now if the first step fails, the original object is still intact.  
+✅ The self assignment check 𝐢𝐟 (𝐭𝐡𝐢𝐬 != &𝐨𝐭𝐡𝐞𝐫) is no longer necessary. The temporary copy handles it naturally!  
+  
+💡 The assignment operator parameter is now 𝐩𝐚𝐬𝐬𝐞𝐝 𝐛𝐲 𝐯𝐚𝐥𝐮𝐞, to automatically handle the creation of the temporary object.  
+  
+Below is 𝐆𝐂𝐂's implementation of 𝐬𝐭𝐝::𝐟𝐮𝐧𝐜𝐭𝐢𝐨𝐧 using 𝐂𝐨𝐩𝐲-𝐚𝐧𝐝-𝐒𝐰𝐚𝐩 𝐢𝐝𝐢𝐨𝐦 (right) and the naive alternative without it (left).
+
+![[CopyAndSwapIdiom2.png]]
