@@ -102,8 +102,10 @@ ISN = Initial Sequence Number // each message has a seq. num to achieve ordering
 ACK = Ackowledge // confirmation a segment was received
 MSS = Maximum Segment Size // maximum number of bytes in a TCP Segment
 CWND = Control Window // Maximum number of bytes to send in RTT
+RWND = Receiver Window // Max number of bytes the recv. can store & process
 AIMD = Additive Increase Multiplicate Decrease // How to adjust the size of CWND
 RTT = Round Trip Time // How long it takes to send a segment and receive an ACK
+SSTHRESH = Slow Start Threshhold // the initial wnd size w/o loss
 ```
 
 ### Flow
@@ -119,12 +121,41 @@ RTT = Round Trip Time // How long it takes to send a segment and receive an ACK
 	 ![[AckWindow.png]]
 
 -  Timeout
-	- If the timer expires (no ACK received), we will re-send the left-most unacknowledged segment
+	- If the timer expires (no ACK received), we will re-send the left-most unacknowledged segment (only once!!! we then enter the slow-start phase)
 	- Timer is set based on RTT
 	- Timer is reset after we received an ACK
 
 ### Congestion control
 
-- Slow start to determine the control window (CWND)
-- Event: duplicated ACK -> packet loss, mild congestion -> decrease CWND
-- Event: timeout ACK -> many packets loss, heavy congestion -> determine new CWND
+1) Discover using Slow Start the SSTHRESH
+2) Adjust the CWND using AIMD mode 
+3) Timeout? -> Slow Start
+
+![[TCPSawtooth.png]]
+
+#### Slow Start Phase
+
+- determine the size of control window (CWND) SSTHRESH
+- we start from 1 packet and increase it exponentially (e.g: double it)
+- every time we received an ACK we send 2 more packets
+- loss? `SSTHRESH = SSTHRESH/2 (the safe rate)` and enter in `AIMD` mode
+ 
+	![[SSTHRESH.png]]
+
+
+#### AIMD Phase
+##### Duplicated ACK Event
+- packet loss, mild congestion -> multiplicatively decrease 
+```cpp
+CWND = CWND / 2
+```
+
+##### Retransmission Timeout Event
+ - many packets loss, heavy congestion -> Go back to Slow Start Phase
+ 
+
+### Congestion control State machine
+
+![[TCP_StateMachineExport.excalidraw]]
+
+![[TCPStateMachine.png]]

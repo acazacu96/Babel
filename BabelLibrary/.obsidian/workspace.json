@@ -11,14 +11,12 @@
             "id": "1c9a5af10a1a9c5f",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "excalidraw",
               "state": {
-                "file": "00_C++/00_PatternsAndConcepts.md",
-                "mode": "source",
-                "source": false
+                "file": "Excalidraw/TCP_StateMachineExport.excalidraw"
               },
-              "icon": "lucide-file",
-              "title": "00_PatternsAndConcepts"
+              "icon": "excalidraw-icon",
+              "title": "TCP_StateMachineExport"
             }
           }
         ]
@@ -78,7 +76,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 325.5
   },
   "right": {
     "id": "32b3cc9cd4b93866",
@@ -171,11 +169,19 @@
   },
   "active": "1c9a5af10a1a9c5f",
   "lastOpenFiles": [
-    "999_Screenshots/CopyAndSwapIdiom2.png",
     "10_Networking/00_IntroductionToInternet.md",
+    "Excalidraw/TCP_StateMachineExport.excalidraw",
+    "TCP_StateMachine.excalidraw.md",
+    "Excalidraw/TCP_StateMachine.excalidraw.md",
+    "999_Screenshots/TCPStateMachine.png",
+    "Excalidraw",
+    "999_Screenshots/TCPSawtooth.png",
+    "999_Screenshots/SSTHRESH.png",
+    "999_Screenshots/CongestionControlWindowTimeline.png",
+    "00_C++/00_PatternsAndConcepts.md",
+    "999_Screenshots/CopyAndSwapIdiom2.png",
     "999_Screenshots/AckWindow.png",
     "999_Screenshots/TcpHanshake.png",
-    "00_C++/00_PatternsAndConcepts.md",
     "Untitled.md",
     "00_C++/c++.md",
     "00_C++/c++.cpp",
@@ -189,11 +195,6 @@
     "01_DataStructures/00_CS61B Berkely.md",
     "01_DataStructures",
     "999_Screenshots/Pasted image 20250311103601.png",
-    "999_Screenshots/Pasted image 20250314165901.png",
-    "999_Screenshots/Pasted image 20250311113340.png",
-    "999_Screenshots/Pasted image 20250311113233.png",
-    "999_Screenshots/Pasted image 20250311112033.png",
-    "999_Screenshots/Pasted image 20250311110332.png",
     "999_Screenshots",
     "10_Networking"
   ]
