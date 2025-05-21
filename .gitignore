@@ -1,1 +1,9 @@
+# MacOS
 .DS_Store
+
+# IDEs
+.idea
+./BabelCode/.idea
+
+# Build folders
+./BabelCode/build
