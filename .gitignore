@@ -2,8 +2,8 @@
 .DS_Store
 
 # IDEs
-.idea
-./BabelCode/.idea
+*.idea
 
 # Build folders
 ./BabelCode/build
+./BabelCode/cmake-build*

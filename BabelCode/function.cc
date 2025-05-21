@@ -1,5 +1,4 @@
 #include <iostream>
-#include <memory> 
 #include <concepts>
 #include <type_traits>
 #include <functional>
@@ -23,8 +22,8 @@ struct _Any_callable {
 // Concept for callables that can be stored in the local buffer to avoid dynamic memory allocations
 template <typename T>
 concept _In_place_callable = sizeof(T) <= sizeof(_Any_callable::storage) &&
-                             std::alignment_of<_Callable_storage>::value % std::alignment_of<T>::value == 0 &&
-                             std::is_nothrow_move_constructible<T>::value;
+                             std::alignment_of_v<_Callable_storage> % std::alignment_of_v<T> == 0 &&
+                             std::is_nothrow_move_constructible_v<T>;
 
 // Handle the callables that can't be stored in the local buffer
 template <typename LargeCallable>
@@ -196,7 +195,7 @@ int add(int a, int b) { return a + b; }
 template <typename Data>
 struct CustomCallable {
     Data data;
-    CustomCallable(Data d): data{d} { std::cout << "Ctor for data " << data << std::endl; }
+    CustomCallable(Data d): data{std::move(d)} { std::cout << "Ctor for data " << data << std::endl; }
     CustomCallable(const CustomCallable& oth): data{oth.data} { std::cout << "copy ctor for data " << data << std::endl; }
     CustomCallable(CustomCallable&& oth) noexcept : data{std::move(oth.data)} { std::cout << "move ctor for data " << data << std::endl; }
     ~CustomCallable() { std::cout << "Destructor for data " << data << std::endl; }
